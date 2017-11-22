@@ -39,6 +39,7 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
+echo $0
 
 CMD=/src/CacheServer/RunLinux.sh
 BETA_BASE_URL="http://beta.unity3d.com/download"
@@ -53,7 +54,9 @@ fi
 if [ ! -f $CMD ]
 then
     echo "Download and unpack Unity Cache Server"
-    curl -k -o cacheserver.zip ${UNITY_BASE_URL}/${HASH}/CacheServer-${VERSION}.zip
+    CACHESERVER_URL="${UNITY_BASE_URL}/${HASH}/CacheServer-${VERSION}.zip"
+    echo $CACHESERVER_URL
+    curl -k -o cacheserver.zip $CACHESERVER_URL
     unzip cacheserver.zip
     rm cacheserver.zip
 fi
