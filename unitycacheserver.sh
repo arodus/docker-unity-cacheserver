@@ -16,8 +16,18 @@ case $key in
     shift # past argument
     shift # past value
     ;;
-    -a|--arguments)
-    ARGUMENTS="$2"
+    -s|--size)
+    SIZE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -p|--port)
+    PORT="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    --nolegacy)
+    NO_LEGACY=true
     shift # past argument
     shift # past value
     ;;
@@ -49,4 +59,11 @@ then
 fi
 
 echo "Starting Services"
-eval "$CMD $ARGUMENTS"
+
+ARGS="--size ${SIZE} --port ${PORT}"
+
+if [ "$NO_LEGACY" = true ] ; then
+    ARGS="${ARGS} --nolegacy"
+fi
+echo $ARGS
+eval "$CMD $ARGS"
