@@ -39,8 +39,6 @@ esac
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
-echo $0
-
 CMD=/src/CacheServer/RunLinux.sh
 BETA_BASE_URL="http://beta.unity3d.com/download"
 BASE_URL="http://netstorage.unity3d.com/unity"
@@ -55,7 +53,6 @@ if [ ! -f $CMD ]
 then
     echo "Download and unpack Unity Cache Server"
     CACHESERVER_URL="${UNITY_BASE_URL}/${HASH}/CacheServer-${VERSION}.zip"
-    echo $CACHESERVER_URL
     curl -k -o cacheserver.zip $CACHESERVER_URL
     unzip cacheserver.zip
     rm cacheserver.zip
@@ -68,5 +65,4 @@ ARGS="--size ${SIZE} --port ${PORT}"
 if [ "$NO_LEGACY" = true ] ; then
     ARGS="${ARGS} --nolegacy"
 fi
-echo $ARGS
 eval "$CMD $ARGS"
